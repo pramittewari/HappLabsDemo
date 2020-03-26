@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DgN-Hh-t2q">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--YOUR UPLOADS-->
+        <scene sceneID="WeF-52-ymQ">
+            <objects>
+                <viewController storyboardIdentifier="ListUploadsViewController" title="YOUR UPLOADS" id="mO0-nJ-IyI" customClass="ListUploadsViewController" customModule="HappLabsDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="szj-Rg-wGV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yns-Ek-3pF">
+                                <rect key="frame" x="107" y="772" width="200" height="50"/>
+                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="BaX-bN-QS1"/>
+                                    <constraint firstAttribute="height" constant="50" id="GZw-Sr-jBr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                <state key="normal" title="UPOAD A VIDEO">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="chooseVideoTapped:" destination="mO0-nJ-IyI" eventType="touchUpInside" id="Rwi-5F-Gey"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Yns-Ek-3pF" firstAttribute="centerX" secondItem="zQM-rr-ygF" secondAttribute="centerX" id="3fO-BX-oSM"/>
+                            <constraint firstItem="zQM-rr-ygF" firstAttribute="bottom" secondItem="Yns-Ek-3pF" secondAttribute="bottom" constant="40" id="ptZ-zM-dKd"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zQM-rr-ygF"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="YOUR UPLOADS" id="4o7-CZ-szL"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qt3-zI-LMk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="886" y="-125"/>
+        </scene>
+        <!--Create Upload View Controller-->
+        <scene sceneID="Kt7-xs-RMA">
+            <objects>
+                <viewController storyboardIdentifier="CreateUploadViewController" id="4wI-so-0oJ" customClass="CreateUploadViewController" customModule="HappLabsDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HuZ-2a-2WP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="qDg-vB-YCf"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qk6-sY-9xZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1615.9420289855075" y="-126.5625"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="kRt-eJ-hzi">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DgN-Hh-t2q" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hkU-iC-Vs1">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="mO0-nJ-IyI" kind="relationship" relationship="rootViewController" id="c9I-ii-QMI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5VG-uD-Pfy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="56.521739130434788" y="-125.22321428571428"/>
+        </scene>
+    </scenes>
+</document>
