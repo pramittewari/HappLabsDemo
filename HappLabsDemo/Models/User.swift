@@ -27,6 +27,7 @@ class User: Codable {
         case userName = "user_name"
         case email
         case password
+        case authenticationToken
     }
     
     func updateValues(fromResponse response: JSON) {

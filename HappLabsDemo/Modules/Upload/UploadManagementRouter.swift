@@ -47,7 +47,7 @@ class UploadManagementRouter {
                 DDLogError("Unable to get ListUploadsViewController.")
                 fatalError("Unable to get ListUploadsViewController.")
         }
-        let interactor = ListUploadsInteractor(router: self, uploadService: uploadService)
+        let interactor = ListUploadsInteractor(router: self, uploadService: uploadService, userService: userService)
         vc.interactor = interactor
         interactor.view = vc
         return nav

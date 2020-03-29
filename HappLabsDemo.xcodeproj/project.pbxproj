@@ -34,6 +34,9 @@
 		8D292BBA242B00DF005A8A1E /* LocalStorageKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D292BB7242B00DF005A8A1E /* LocalStorageKeys.swift */; };
 		8D292BBC242B01C8005A8A1E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D292BBB242B01C8005A8A1E /* User.swift */; };
 		8D29D0EF243026FE0048E5E8 /* UploadedFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D29D0EE243026FE0048E5E8 /* UploadedFile.swift */; };
+		8D29D0F2243050F70048E5E8 /* UploadedFileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D29D0F1243050F70048E5E8 /* UploadedFileCell.swift */; };
+		8D29D0F6243121950048E5E8 /* ValidationMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D29D0F4243121950048E5E8 /* ValidationMessages.swift */; };
+		8D29D0F7243121950048E5E8 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D29D0F5243121950048E5E8 /* Validator.swift */; };
 		8D58FC2224291886008389EC /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58FC1224291885008389EC /* BaseViewController.swift */; };
 		8D58FC2324291886008389EC /* Interacting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58FC1324291885008389EC /* Interacting.swift */; };
 		8D58FC2424291886008389EC /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58FC1524291885008389EC /* MainRouter.swift */; };
@@ -76,6 +79,9 @@
 		8D292BB7242B00DF005A8A1E /* LocalStorageKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageKeys.swift; sourceTree = "<group>"; };
 		8D292BBB242B01C8005A8A1E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8D29D0EE243026FE0048E5E8 /* UploadedFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadedFile.swift; sourceTree = "<group>"; };
+		8D29D0F1243050F70048E5E8 /* UploadedFileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadedFileCell.swift; sourceTree = "<group>"; };
+		8D29D0F4243121950048E5E8 /* ValidationMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationMessages.swift; sourceTree = "<group>"; };
+		8D29D0F5243121950048E5E8 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		8D58FBF82428FA65008389EC /* HappLabsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HappLabsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D58FC1224291885008389EC /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8D58FC1324291885008389EC /* Interacting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interacting.swift; sourceTree = "<group>"; };
@@ -183,6 +189,23 @@
 			path = StorageService;
 			sourceTree = "<group>";
 		};
+		8D29D0F02430509E0048E5E8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8D29D0F1243050F70048E5E8 /* UploadedFileCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8D29D0F3243121950048E5E8 /* Validation */ = {
+			isa = PBXGroup;
+			children = (
+				8D29D0F4243121950048E5E8 /* ValidationMessages.swift */,
+				8D29D0F5243121950048E5E8 /* Validator.swift */,
+			);
+			path = Validation;
+			sourceTree = "<group>";
+		};
 		8D58FBEF2428FA65008389EC = {
 			isa = PBXGroup;
 			children = (
@@ -220,6 +243,7 @@
 			children = (
 				8D58FC1024291885008389EC /* Contracts */,
 				8D292B91242A32B0005A8A1E /* Extensions */,
+				8D29D0F3243121950048E5E8 /* Validation */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -328,6 +352,7 @@
 			children = (
 				8D292B8B242A2E25005A8A1E /* ListUploadsViewController.swift */,
 				8D292B8F242A2E51005A8A1E /* ListUploadsInteractor.swift */,
+				8D29D0F02430509E0048E5E8 /* Views */,
 			);
 			path = ListUploads;
 			sourceTree = "<group>";
@@ -517,10 +542,12 @@
 				8D292B84242A2D65005A8A1E /* SignUpViewController.swift in Sources */,
 				8D58FC2324291886008389EC /* Interacting.swift in Sources */,
 				8D58FC3524291B6D008389EC /* UploadManagementRouter.swift in Sources */,
+				8D29D0F7243121950048E5E8 /* Validator.swift in Sources */,
 				8D58FC3124291B39008389EC /* UserManagementRouter.swift in Sources */,
 				8D292BAB242AA682005A8A1E /* BasicResponse.swift in Sources */,
 				8D292B99242A34DC005A8A1E /* R.generated.swift in Sources */,
 				8D29D0EF243026FE0048E5E8 /* UploadedFile.swift in Sources */,
+				8D29D0F6243121950048E5E8 /* ValidationMessages.swift in Sources */,
 				8D292BB9242B00DF005A8A1E /* StorageService.swift in Sources */,
 				8D58FC2224291886008389EC /* BaseViewController.swift in Sources */,
 				8D292BA6242A64CC005A8A1E /* NetworkConfiguration.swift in Sources */,
@@ -536,6 +563,7 @@
 				8D292B86242A2D96005A8A1E /* SignInInteractor.swift in Sources */,
 				8D292BA5242A64CC005A8A1E /* APIList.swift in Sources */,
 				8D292BA7242A64CC005A8A1E /* UploadService.swift in Sources */,
+				8D29D0F2243050F70048E5E8 /* UploadedFileCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

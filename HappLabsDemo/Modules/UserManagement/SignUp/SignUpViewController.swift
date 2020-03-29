@@ -17,6 +17,7 @@ class SignUpViewController: BaseViewController<SignUpInteractor> {
     
     @IBAction func signUpTapped(_ sender: UIButton) {
         
+        interactor?.signUpUser(email: emailTextField.text, userName: userNameTextField.text, password: passwordTextField.text, confirmPassword: confirmPasswordTextField.text)
     }
     
     @IBAction func navigateToSignInTapped(_ sender: UIButton) {

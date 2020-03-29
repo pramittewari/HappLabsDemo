@@ -18,6 +18,10 @@ function_body_length:
 function_parameter_count:
     warning: 8
     error: 10
+    
+large_tuple:
+    warning: 4
+    error: 6
 
 opt_in_rules: # some rules are only opt-in
 - force_unwrapping

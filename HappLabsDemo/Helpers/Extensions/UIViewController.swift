@@ -1,9 +1,9 @@
 //
-//  UIViewController+Alerts.swift
-//  StickerApp
+//  UIViewController+Extensions.swift
+//  HappLabsDemo
 //
-//  Created by Pramit on 20/02/20.
-//  Copyright © 2020 Credencys Solutions Inc. All rights reserved.
+//  Created by Pramit on 23/03/20.
+//  Copyright © 2020 Pramit Tewari. All rights reserved.
 //
 
 import Foundation

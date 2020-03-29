@@ -46,7 +46,8 @@ class UserManagementRouter {
                 DDLogError("Unable to get SignInViewController.")
                 fatalError("Unable to get SignInViewController.")
         }
-        let interactor = SignInInteractor(router: self)
+        
+        let interactor = SignInInteractor(router: self, userService: userService)
         vc.interactor = interactor
         interactor.view = vc
         return nav
@@ -60,7 +61,7 @@ class UserManagementRouter {
             fatalError("Unable to get SignUpViewController.")
         }
         
-        let interactor = SignUpInteractor(router: self)
+        let interactor = SignUpInteractor(router: self, userService: userService)
         vc.interactor = interactor
         interactor.view = vc
         return vc

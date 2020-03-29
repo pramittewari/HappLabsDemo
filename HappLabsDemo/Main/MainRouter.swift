@@ -23,7 +23,7 @@ final class MainRouter {
     ///
     private lazy var userService: UserService = UserService(networkSerivce: networkService, storageService: storageService)
     ///
-    private lazy var uploadService: UploadService = UploadService(networkSerivce: networkService, userService: userService)
+    private lazy var uploadService: UploadService = UploadService(networkSerivce: networkService, userService: userService, notificationService: notificationService)
 
     ///
     private let launchOptions: [UIApplication.LaunchOptionsKey: Any]?

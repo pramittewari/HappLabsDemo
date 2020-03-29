@@ -23,7 +23,7 @@ class NetworkService {
     ///
     private let notificationService: NotificationService
     ///
-    private var sessionKey: String?
+    private var authenticationToken: String?
     
     // MARK: - Life Cycle Methods
     
@@ -40,8 +40,8 @@ class NetworkService {
     // MARK: - Configuration Methods
 
     ///
-    func update(sessionKey: String) {
-        self.sessionKey = sessionKey
+    func update(authenticationToken: String) {
+        self.authenticationToken = authenticationToken
     }
 
     ///
@@ -89,7 +89,7 @@ class NetworkService {
     ///   - success: success block.
     ///   - failure: failure block.
     /// - Returns: request object
-    @discardableResult func request(parameters: Parameters?, headerParameter: HTTPHeaders? = nil, serverUrl: String = NetworkConfiguration.baseURL, apiPath: String, httpMethod: HTTPMethod, queue: DispatchQueue? = nil, success:@escaping(_ statusCode: Int, _ response: [String: Any]) -> Void, failure:@escaping(_ statusCode: Int, _ error: Error?) -> Void) -> DataRequest {
+    @discardableResult func request(parameters: Parameters?, headerParameter: HTTPHeaders? = nil, serverUrl: String = NetworkConfiguration.baseURL, apiPath: String, httpMethod: HTTPMethod, queue: DispatchQueue? = nil, success: @escaping(_ statusCode: Int, _ response: [String: Any], _ authorisationToken: String?) -> Void, failure: @escaping(_ statusCode: Int, _ error: Error?) -> Void) -> DataRequest {
         
         setAlamofireDefaultConfiguration()
         // Set path
@@ -101,32 +101,39 @@ class NetworkService {
             completeURL += "/" + value
             passingParameters = nil
         }
-        // application/x-www-form-urlencoded
+
         // Set header
-        let headerParam = headerParameter == nil ? ["Content-Type": "application/json", "authorization": ""] : headerParameter
+        let headerParam = headerParameter == nil ? [
+            "Content-Type": "application/json",
+            "Authorization": authenticationToken ?? ""] :
+        headerParameter
         
         let request = AF.request(completeURL, method: httpMethod, parameters: passingParameters, encoding: JSONEncoding.default, headers: headerParam).responseJSON(queue: queue ?? .main) { response in
+            
+            var authToken = ""
             if let headers = response.response?.allHeaderFields as? [String: String] {
-                if let header = headers["x-access-token"] { print(header) }
+                if let token = headers["Authorization"] {
+                    authToken = token
+                }
             }
             switch response.result {
             case .success:
-                //let jsonResponse = JSON(response.result.value ?? [String: Any]())
+                // let jsonResponse = JSON(response.result.value ?? [String: Any]())
                 if let responseDict = response.value as? [String: Any] {
-                    success(response.response?.statusCode ?? 200, responseDict)
-                //    DDLogInfo("\((response.value ?? "success"))")
+                    success(response.response?.statusCode ?? 200, responseDict, authToken)
+                    // DDLogInfo("\((response.value ?? "success"))")
                 } else if let responseArray = response.value as? [Any] {
                     // Handling scenario where array is sent is converted into a dictionary with response key
                     let responseDict = ["response": responseArray]
-                    success(response.response?.statusCode ?? 200, responseDict)
-                //    DDLogInfo("\((response.value ?? "success"))")
+                    success(response.response?.statusCode ?? 200, responseDict, authToken)
+                    // DDLogInfo("\((response.value ?? "success"))")
                 } else {
                     failure(response.response?.statusCode ?? 200, response.error)
-                 //   DDLogError("\((response.error?.localizedDescription ?? "failed"))")
+                    // DDLogError("\((response.error?.localizedDescription ?? "failed"))")
                 }
             case .failure:
                 failure(response.response?.statusCode ?? 404, response.error)
-             //   DDLogError("\((response.error?.localizedDescription ?? "error"))")
+                // DDLogError("\((response.error?.localizedDescription ?? "error"))")
             }
         }
         return request
@@ -148,8 +155,8 @@ class NetworkService {
         let completeURL = serverUrl + apiPath
         // Set header
         let headerParam = headerParameter == nil ? ["Content-type": "multipart/form-data"] : headerParameter
-        if imageData != nil {
-            AF.upload(multipartFormData: { (multipartFormData) in
+
+        AF.upload(multipartFormData: { (multipartFormData) in
                 
                 if let data = imageData {
                     let imageName = "\(Date())"
@@ -174,9 +181,6 @@ class NetworkService {
                     failure(404, error)
                 }
             }
-        } else {
-            request(parameters: parameter, apiPath: apiPath, httpMethod: httpMethod, success: success, failure: failure)
-        }
     }
     
     func fileUpload(withFileURL fileURL: String, fileSize: Int, parameters: [String: Any], serverPath: String = NetworkConfiguration.baseURL, apiPath: String) {
@@ -184,8 +188,8 @@ class NetworkService {
         let completeURL = serverPath + apiPath
         
         let headers = [
-            "Authorization": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTUxNywidW5hbWUiOiJwYW5rYWoiLCJlbWFpbCI6InRlc3Rmb3IxQG1haWxpbmF0b3IuY29tIiwidXNlcl90eXBlIjoiTk9STUFMX1VTRVIiLCJpYXQiOjE1ODUxMDkxNzYsImV4cCI6MTU4NTQ2OTE3Nn0.QQwDNV05FP3x15UcFJPMUMzd4561lydUEEk9PhD8kts",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": authenticationToken ?? ""
         ]
         
         let httpHeaders = HTTPHeaders(headers)

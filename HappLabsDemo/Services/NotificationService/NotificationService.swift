@@ -127,9 +127,12 @@ class NotificationService: NSObject {
     
     /// Logout user when session is expired and show landing screen
     func showUserLogoutAlert() {
-        showAlert(forTitle: "Session Expired", message: "Please relogin to continue.", buttonTitles: ["Okay"], customAlertViewTapButtonBlock: { [weak self]_ in
+        
+        //
+        router?.presentSignInScreen()
+        /*showAlert(forTitle: "Session Expired", message: "Please relogin to continue.", buttonTitles: ["Okay"], customAlertViewTapButtonBlock: { [weak self]_ in
             self?.router?.presentSignInScreen()
-            }, isHighPriority: true)
+            }, isHighPriority: true)*/
     }
     
     // MARK: - Notification Related Methods

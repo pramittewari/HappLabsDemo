@@ -11,6 +11,11 @@ import SwiftyJSON
 import CocoaLumberjack
 import Alamofire
 
+protocol LoginDelegate: class {
+    
+    func userLoggedIn()
+}
+
 /// This service is responsible for all user related opertions like: - login, forgot password, view and edit profile
 class UserService {
     
@@ -22,6 +27,8 @@ class UserService {
     private let storageService: StorageService
     ///
     private var user: User?
+    ///
+    weak var loginDelegate: LoginDelegate?
 
     // MARK: - Life Cycle Methods
     
@@ -30,9 +37,10 @@ class UserService {
         
         self.networkSerivce = networkSerivce
         self.storageService = storageService
+        
         user = storageService.getUser()
-        networkSerivce.update(sessionKey: user?.authenticationToken ?? "")
-        print("Session Key - \(user?.authenticationToken ?? "")")
+        networkSerivce.update(authenticationToken: user?.authenticationToken ?? "")
+        print("Session Key - \(user?.authenticationToken ?? "No token found!")")
     }
     
     // MARK: - Save/Get Methods
@@ -46,7 +54,6 @@ class UserService {
         return user
     }
     
-    // TODO: Update whole profile when profile is edited
 //    func updateUserName(withFirstName firstName: String?, lastName: String?) {
 //        
 //        user?.firstName = firstName
@@ -62,7 +69,7 @@ class UserService {
             return
         }
         // Make access token publicly available for api
-        networkSerivce.update(sessionKey: user.authenticationToken ?? "")
+        networkSerivce.update(authenticationToken: user.authenticationToken ?? "")
         storageService.saveUser(user)
     }
     
@@ -70,56 +77,59 @@ class UserService {
     func deleteUser() {
         // Delete info
         self.user = nil
-        networkSerivce.update(sessionKey: "")
+        networkSerivce.update(authenticationToken: "")
         saveUser()
     }
     
     // MARK: - API Methods
     
     /// Login user into the app
-    func loginUser(withParameters parameters: [String: Any], completionHandler: @escaping ((_ statusCode: Int, _ isSuccess: Bool, _ data: JSON?, _ error: String?) -> Void)) {
+    func loginUser(withParameters parameters: [String: Any], completionHandler: @escaping ((_ statusCode: Int, _ isSuccess: Bool, _ error: String?) -> Void)) {
         
-        networkSerivce.request(parameters: parameters, apiPath: APIList.UserManagement.signIn, httpMethod: .post, success: { [weak self](statusCode, response) in
+        networkSerivce.request(parameters: parameters, apiPath: APIList.UserManagement.signIn, httpMethod: .post, success: { [weak self] (statusCode, response, authenticationToken)  in
+            
             let jsonResponse = JSON(response)
             let basicResponse = BasicResponse(jsonResponse: jsonResponse)
             
-            if basicResponse.success, let data = response["data"] as? [String: Any] {
+            if basicResponse.success {
                 
                 // Create new user
                 self?.user = User()
-                //self?.user?.updateValues(fromResponse: data)
+                self?.user?.updateValues(fromResponse: jsonResponse)
+                self?.user?.authenticationToken = authenticationToken ?? ""
                 self?.saveUser()
-                completionHandler(statusCode, true, nil, nil)
+                self?.loginDelegate?.userLoggedIn()
+                completionHandler(statusCode, true, nil)
                 
             } else {
-                completionHandler(statusCode, false, nil, basicResponse.message)
+                completionHandler(statusCode, false, basicResponse.message)
             }
             }, failure: { (statusCode, error) in
                 print(error?.localizedDescription ?? "SOMETHING_WENT_WRONG")
-                completionHandler(statusCode, false, nil, error?.localizedDescription)
+                completionHandler(statusCode, false, error?.localizedDescription)
         })
     }
     
     /// Register user
     func registerUser(withParameters parameters: [String: Any], completionHandler: @escaping BasicCompletion) {
 
-        networkSerivce.request(parameters: parameters, apiPath: APIList.UserManagement.signUp, httpMethod: .post, success: { [weak self](statusCode, response) in
+        networkSerivce.request(parameters: parameters, apiPath: APIList.UserManagement.signUp, httpMethod: .post, success: { (statusCode, response, _)  in
+            
             let jsonResponse = JSON(response)
             let basicResponse = BasicResponse(jsonResponse: jsonResponse)
             
-            var userDetails = [String: Any]()
-            if basicResponse.success, let value = response["data"] as? [String: Any] {
-                userDetails = value
+            if basicResponse.success {
+                completionHandler(statusCode, true, basicResponse.message)
             } else {
                 completionHandler(statusCode, false, basicResponse.message)
             }
-            // Create new user
-            if basicResponse.success {
-                self?.user = User()
-                //self?.user?.updateValues(fromResponse: userDetails)
-                self?.saveUser()
-            }
-            completionHandler(statusCode, basicResponse.success, basicResponse.message ?? "")
+//            Create new user
+//            if basicResponse.success {
+//                self?.user = User()
+//                //self?.user?.updateValues(fromResponse: userDetails)
+//                self?.saveUser()
+//            }
+//            completionHandler(statusCode, basicResponse.success, basicResponse.message ?? "")
             }, failure: { (statusCode, error) in
                 print(error?.localizedDescription ?? "SOMETHING_WENT_WRONG")
                 completionHandler(statusCode, false, error?.localizedDescription)

@@ -20,37 +20,54 @@ class UploadService {
     private let networkSerivce: NetworkService
     ///
     private let userService: UserService
-
+    ///
+    private let notificationService: NotificationService
+    ///
+    private let authenticationExpiredCode: Int = -2
     // MARK: - Life Cycle Methods
     
     ///
-    init(networkSerivce: NetworkService, userService: UserService) {
+    init(networkSerivce: NetworkService, userService: UserService, notificationService: NotificationService) {
         
         self.networkSerivce = networkSerivce
         self.userService = userService
+        self.notificationService = notificationService
     }
     
     ///
-    func fetchUploadedFiles(withParameters parameters: [String: Any], completionHandler: @escaping ((_ statusCode: Int, _ isSuccess: Bool, _ uploadedFiles: [String]?, _ error: String?) -> Void)) {
+    func fetchUploadedFiles(completionHandler: @escaping ((_ statusCode: Int, _ isSuccess: Bool, _ uploadedFiles: [UploadedFile]?, _ error: String?, _ requiresHandling: Bool) -> Void)) {
         
-        networkSerivce.request(parameters: parameters, serverUrl: NetworkConfiguration.baseURL, apiPath: APIList.UploadManagement.fetchUploads, httpMethod: .post, success: { (statusCode, response) in
+        networkSerivce.request(parameters: nil, serverUrl: NetworkConfiguration.baseURL, apiPath: APIList.UploadManagement.fetchUploads, httpMethod: .get, success: { [weak self] (statusCode, response, _)  in
             
             let jsonResponse = JSON(response)
             let basicResponse = BasicResponse(jsonResponse: jsonResponse)
             
-            if basicResponse.success, let data = response["data"] {
+            if basicResponse.success, let data = response["rval"] {
                 
-                print(data)
+                let files = JSON(data).array ?? []
+                var uploadedFiles: [UploadedFile] = []
+                files.forEach { (file) in
+                    uploadedFiles.append(UploadedFile(jsonResponse: file))
+                }
                 
-                completionHandler(statusCode, true, [], nil)
+                completionHandler(statusCode, true, uploadedFiles, nil, true)
                 
             } else {
-                completionHandler(statusCode, false, nil, basicResponse.message)
+                
+                guard let code = JSON(jsonResponse["rval"]).int,
+                    let expirationCode = self?.authenticationExpiredCode,
+                    code != expirationCode else {
+                    // Handle expiration code
+                    self?.notificationService.showUserLogoutAlert()
+                    completionHandler(statusCode, false, nil, basicResponse.message, false)
+                    return
+                }
+                completionHandler(statusCode, false, nil, basicResponse.message, true)
             }
             
         }, failure: { (statusCode, error) in
             print(error?.localizedDescription ?? "SOMETHING_WENT_WRONG")
-            completionHandler(statusCode, false, nil, error?.localizedDescription)
+            completionHandler(statusCode, false, nil, error?.localizedDescription, true)
         })
     }
     
