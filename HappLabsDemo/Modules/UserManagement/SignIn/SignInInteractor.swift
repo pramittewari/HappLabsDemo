@@ -21,8 +21,13 @@ class SignInInteractor: Interacting {
         self.router = router
     }
         
-    func navigateToUploadListingScreen() {
+    func navigateToSignUpScreen() {
         
-        router.presentUploadListAsRoot()
+        router.presentSignUpScreen()
+    }
+    
+    func dismissSignInScreen() {
+        
+        router.dismissScreen()
     }
 }

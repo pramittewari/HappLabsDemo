@@ -21,4 +21,7 @@ class SignUpInteractor: Interacting {
         self.router = router
     }
         
+    func popViewController() {
+        router.popViewController()
+    }
 }

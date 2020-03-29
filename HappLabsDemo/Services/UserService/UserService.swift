@@ -31,8 +31,8 @@ class UserService {
         self.networkSerivce = networkSerivce
         self.storageService = storageService
         user = storageService.getUser()
-        networkSerivce.update(sessionKey: user?.sessionKey ?? "")
-        print("Session Key - \(user?.sessionKey ?? "")")
+        networkSerivce.update(sessionKey: user?.authenticationToken ?? "")
+        print("Session Key - \(user?.authenticationToken ?? "")")
     }
     
     // MARK: - Save/Get Methods
@@ -47,13 +47,13 @@ class UserService {
     }
     
     // TODO: Update whole profile when profile is edited
-    func updateUserName(withFirstName firstName: String?, lastName: String?) {
-        
-        user?.firstName = firstName
-        user?.lastName = lastName
-        
-        saveUser()
-    }
+//    func updateUserName(withFirstName firstName: String?, lastName: String?) {
+//        
+//        user?.firstName = firstName
+//        user?.lastName = lastName
+//        
+//        saveUser()
+//    }
     
     /// Call to save the user
     func saveUser() {
@@ -62,7 +62,7 @@ class UserService {
             return
         }
         // Make access token publicly available for api
-        networkSerivce.update(sessionKey: user.sessionKey ?? "")
+        networkSerivce.update(sessionKey: user.authenticationToken ?? "")
         storageService.saveUser(user)
     }
     
@@ -87,7 +87,7 @@ class UserService {
                 
                 // Create new user
                 self?.user = User()
-                self?.user?.updateValues(fromResponse: data)
+                //self?.user?.updateValues(fromResponse: data)
                 self?.saveUser()
                 completionHandler(statusCode, true, nil, nil)
                 
@@ -116,7 +116,7 @@ class UserService {
             // Create new user
             if basicResponse.success {
                 self?.user = User()
-                self?.user?.updateValues(fromResponse: userDetails)
+                //self?.user?.updateValues(fromResponse: userDetails)
                 self?.saveUser()
             }
             completionHandler(statusCode, basicResponse.success, basicResponse.message ?? "")

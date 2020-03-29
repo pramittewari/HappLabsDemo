@@ -52,14 +52,20 @@ final class MainRouter {
     /// Call to determine and present the root view for this application. Currently that will be either the tabBar or the initial onboarding slideshow.
     func setInitialViewController() {
 
-        presentSignInAsRoot()
+        presentUploadListAsRoot()
     }
 
     ///
-    func presentSignInAsRoot() {
+    func presentSignInScreen() {
         
-        let router = UserManagementRouter(router: self, launchOptions: launchOptions, window: window, userService: userService, uploadService: uploadService)
-        router.presentSignInAsRoot()
+        let signInScreen = UserManagementRouter(router: self, launchOptions: launchOptions, window: window, userService: userService, uploadService: uploadService).assembleInitialScreen()
+        window.rootViewController?.present(signInScreen, animated: true, completion: nil)
     }
     
+    ///
+    func presentUploadListAsRoot() {
+        let router = UploadManagementRouter(router: self, launchOptions: launchOptions, window: window, userService: userService, uploadService: uploadService)
+        router.presentUploadListingAsRoot()
+    }
+
 }

@@ -52,19 +52,43 @@ class UserManagementRouter {
         return nav
     }
     
+    ///
+    func assembleSignUpScreen() -> UIViewController {
+        
+        guard let vc = R.storyboard.userManagement.signUpViewController() else {
+            DDLogError("Unable to get SignUpViewController.")
+            fatalError("Unable to get SignUpViewController.")
+        }
+        
+        let interactor = SignUpInteractor(router: self)
+        vc.interactor = interactor
+        interactor.view = vc
+        return vc
+    }
+    
     // Navigation Methods
     
+//    ///
+//    func presentSignInAsRoot() {
+//        let vc = assembleInitialScreen()
+//        window.rootViewController = vc
+//
+//    }
+    
     ///
-    func presentSignInAsRoot() {
-        
-        let vc = assembleInitialScreen()
-        window.rootViewController = vc
+    func presentSignUpScreen() {
+        let vc = assembleSignUpScreen()
+        navigationController?.pushViewController(vc, animated: true)
+    }
 
+    ///
+    func dismissScreen() {
+        navigationController?.dismiss(animated: true, completion: nil)
     }
     
     ///
-    func presentUploadListAsRoot() {
-        let router = UploadManagementRouter(router: mainRouter, launchOptions: launchOptions, window: window, userService: userService, uploadService: uploadService)
-        router.presentUploadListingAsRoot()
+    func popViewController() {
+        navigationController?.popViewController(animated: true)
     }
+    
 }

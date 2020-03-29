@@ -27,13 +27,12 @@ class MessageParseResponse: Codable {
 class BasicResponse: NSObject {
     
     var success: Bool
-    var payload: JSON?
     var message: String?
     
     init(jsonResponse: JSON) {
         print(jsonResponse)
-        success = jsonResponse["status"].string == "0" ? false : true
-        payload = jsonResponse["data"]
+
+        success = jsonResponse["success"].bool ?? false
         message = jsonResponse["message"].string
     }
 }

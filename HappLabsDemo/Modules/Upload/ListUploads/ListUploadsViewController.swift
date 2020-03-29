@@ -19,6 +19,11 @@ class ListUploadsViewController: BaseViewController<ListUploadsInteractor> {
         
     }
     
+    @IBAction func logoutTapped(_ sender: UIBarButtonItem) {
+        
+        interactor?.presentSignInScreen()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

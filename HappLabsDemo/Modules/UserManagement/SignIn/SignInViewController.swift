@@ -9,14 +9,23 @@
 import UIKit
 
 class SignInViewController: BaseViewController<SignInInteractor> {
+    
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
 
+    @IBAction func signInTapped(_ sender: UIButton) {
+        
+        interactor?.dismissSignInScreen()
+    }
+
+    @IBAction func navigateToSignUpTapped (_ sender: UIButton) {
+    
+        interactor?.navigateToSignUpScreen()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
 
-    @IBAction func signInTapped(_ sender: UIButton) {
-        
-        interactor?.navigateToUploadListingScreen()
-    }
 }

@@ -27,4 +27,9 @@ class ListUploadsInteractor: Interacting {
     func beginUpload(fromFileURL fileURL: String, fileSize: Int, fileName: String) {
         uploadService.beginUpload(fromFileURL: fileURL, fileSize: fileSize, fileName: fileName)
     }
+    
+    func presentSignInScreen() {
+        
+        router.presentSignInScreen()
+    }
 }

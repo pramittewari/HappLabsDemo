@@ -62,4 +62,9 @@ class UploadManagementRouter {
         window.rootViewController = vc
 
     }
+    
+    ///
+    func presentSignInScreen() {
+        mainRouter.presentSignInScreen()
+    }
 }

@@ -33,6 +33,7 @@
 		8D292BB9242B00DF005A8A1E /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D292BB6242B00DF005A8A1E /* StorageService.swift */; };
 		8D292BBA242B00DF005A8A1E /* LocalStorageKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D292BB7242B00DF005A8A1E /* LocalStorageKeys.swift */; };
 		8D292BBC242B01C8005A8A1E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D292BBB242B01C8005A8A1E /* User.swift */; };
+		8D29D0EF243026FE0048E5E8 /* UploadedFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D29D0EE243026FE0048E5E8 /* UploadedFile.swift */; };
 		8D58FC2224291886008389EC /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58FC1224291885008389EC /* BaseViewController.swift */; };
 		8D58FC2324291886008389EC /* Interacting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58FC1324291885008389EC /* Interacting.swift */; };
 		8D58FC2424291886008389EC /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58FC1524291885008389EC /* MainRouter.swift */; };
@@ -74,6 +75,7 @@
 		8D292BB6242B00DF005A8A1E /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		8D292BB7242B00DF005A8A1E /* LocalStorageKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageKeys.swift; sourceTree = "<group>"; };
 		8D292BBB242B01C8005A8A1E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		8D29D0EE243026FE0048E5E8 /* UploadedFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadedFile.swift; sourceTree = "<group>"; };
 		8D58FBF82428FA65008389EC /* HappLabsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HappLabsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D58FC1224291885008389EC /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8D58FC1324291885008389EC /* Interacting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interacting.swift; sourceTree = "<group>"; };
@@ -147,9 +149,10 @@
 		8D292BA9242AA66D005A8A1E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8D292BAF242ABFA8005A8A1E /* Media.swift */,
 				8D292BBB242B01C8005A8A1E /* User.swift */,
 				8D292BAA242AA682005A8A1E /* BasicResponse.swift */,
-				8D292BAF242ABFA8005A8A1E /* Media.swift */,
+				8D29D0EE243026FE0048E5E8 /* UploadedFile.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -285,8 +288,8 @@
 			children = (
 				8D58FC3224291B5C008389EC /* UploadManagement.storyboard */,
 				8D58FC3424291B6D008389EC /* UploadManagementRouter.swift */,
-				8D58FC3924291D9E008389EC /* CreateUpload */,
 				8D58FC3824291D9E008389EC /* ListUploads */,
+				8D58FC3924291D9E008389EC /* CreateUpload */,
 			);
 			path = Upload;
 			sourceTree = "<group>";
@@ -517,6 +520,7 @@
 				8D58FC3124291B39008389EC /* UserManagementRouter.swift in Sources */,
 				8D292BAB242AA682005A8A1E /* BasicResponse.swift in Sources */,
 				8D292B99242A34DC005A8A1E /* R.generated.swift in Sources */,
+				8D29D0EF243026FE0048E5E8 /* UploadedFile.swift in Sources */,
 				8D292BB9242B00DF005A8A1E /* StorageService.swift in Sources */,
 				8D58FC2224291886008389EC /* BaseViewController.swift in Sources */,
 				8D292BA6242A64CC005A8A1E /* NetworkConfiguration.swift in Sources */,

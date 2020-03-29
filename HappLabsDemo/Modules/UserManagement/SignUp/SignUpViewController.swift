@@ -10,6 +10,20 @@ import UIKit
 
 class SignUpViewController: BaseViewController<SignUpInteractor> {
 
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var confirmPasswordTextField: UITextField!
+    
+    @IBAction func signUpTapped(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func navigateToSignInTapped(_ sender: UIButton) {
+        
+        interactor?.popViewController()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

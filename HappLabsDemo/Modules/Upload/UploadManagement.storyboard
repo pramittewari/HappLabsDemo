@@ -44,7 +44,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zQM-rr-ygF"/>
                     </view>
-                    <navigationItem key="navigationItem" title="YOUR UPLOADS" id="4o7-CZ-szL"/>
+                    <navigationItem key="navigationItem" title="UPLOADS" id="4o7-CZ-szL">
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="69m-yV-YKQ">
+                            <connections>
+                                <action selector="logoutTapped:" destination="mO0-nJ-IyI" id="VzO-7y-NUS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qt3-zI-LMk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
