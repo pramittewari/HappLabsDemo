@@ -40,8 +40,6 @@ class GalleryService: NSObject {
     weak var delegate: GalleryServiceDelegate?
     ///
     private lazy var myPickerController = UIImagePickerController()
-    ///
-    //var maxVideoDurationAllowed: Int = 240
     
     // MARK: - Life cycle method
     
@@ -93,11 +91,8 @@ class GalleryService: NSObject {
                     }
                     self?.myPickerController.cameraDevice =  isFrontCam ? .front : .rear
                     self?.myPickerController.cameraCaptureMode = .video
-                    // myPickerController.allowsEditing = true
-                    //   DispatchQueue.main.async { [weak self] in
                     self?.navigationController?.present(self?.myPickerController ?? UIImagePickerController(), animated: true, completion: nil)
                 }
-                // }
             }
         } else {
             AVCaptureDevice.requestAccess(for: .video, completionHandler: { [weak self] (granted: Bool) in
@@ -113,7 +108,6 @@ class GalleryService: NSObject {
                             }
                             self?.myPickerController.cameraCaptureMode = .video
                             self?.myPickerController.cameraDevice = isFrontCam ? .front : .rear
-                            //  myPickerController.allowsEditing = true
                             self?.navigationController?.present(self?.myPickerController ?? UIImagePickerController(), animated: true, completion: nil)
                         }
                     }
@@ -135,19 +129,18 @@ class GalleryService: NSObject {
                 imagePicker.mediaTypes = mediaType
             }
             
+            //imagePicker.videoMaximumDuration = TimeInterval(maxVideoDurationAllowed)
+            //imagePicker.showsCameraControls = true
+            
+            imagePicker.allowsEditing = false
             imagePicker.cameraCaptureMode = .video
             imagePicker.videoQuality = .typeHigh
-            //imagePicker.videoMaximumDuration = TimeInterval(maxVideoDurationAllowed)
-            imagePicker.allowsEditing = false
-            //  imagePicker.showsCameraControls = true
             imagePicker.modalPresentationStyle = .fullScreen
             if #available(iOS 13.0, *) {
                 imagePicker.overrideUserInterfaceStyle = .light
             }
             if #available(iOS 11.0, *) {
                      imagePicker.videoExportPreset = AVAssetExportPreset1920x1080
-            } else {
-                        // Fallback on earlier versions
             }
             navigationController?.present(imagePicker, animated: true, completion: nil)
         }
@@ -187,8 +180,7 @@ extension GalleryService: UIImagePickerControllerDelegate, UINavigationControlle
                     
                     // AUTHORISED
                     PHPhotoLibrary.shared().performChanges({
-                        let request = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: pickedVideoUrl as URL)
-                        print(request?.placeholderForCreatedAsset?.localIdentifier ?? "nil")
+                        _ = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: pickedVideoUrl as URL)
                         
                         mediaObj.videoUrl = pickedVideoUrl as URL
                         
@@ -197,18 +189,7 @@ extension GalleryService: UIImagePickerControllerDelegate, UINavigationControlle
                                 self?.delegate?.getVideoResultFromGallery(video: mediaObj)
                             })
                         }
-                        
-//                        self.encodeVideoToMp4(videoUrl: pickedVideoUrl as URL, resultClosure: { [weak self] (outputUrl) in
-//
-//                            print(outputUrl ?? "")
-//                            mediaObj.videoUrl = outputUrl
-//
-//                            DispatchQueue.main.async {
-//                                self?.navigationController?.dismiss(animated: true, completion: { [weak self] in
-//                                    self?.delegate?.getVideoResultFromGallery(video: mediaObj)
-//                                })
-//                            }
-//                        })
+
                     }, completionHandler: { (success, error) in
                         print(success ? "Video Saved" : "Error in Video Saving: \(error?.localizedDescription ?? "")")
                     })
@@ -233,19 +214,6 @@ extension GalleryService: UIImagePickerControllerDelegate, UINavigationControlle
                                         
                                     })
                                 }
-                                
-//                                self?.encodeVideoToMp4(videoUrl: pickedVideoUrl as URL, resultClosure: { [weak self] (outputUrl) in
-//
-//                                    mediaObj.videoUrl = outputUrl
-//
-//                                    DispatchQueue.main.async {
-//                                        self?.navigationController?.dismiss(animated: true, completion: { [weak self] in
-//
-//                                            self?.delegate?.getVideoResultFromGallery(video: mediaObj)
-//
-//                                        })
-//                                    }
-//                                })
                                 
                             }, completionHandler: { (success, error) in
                                     print(success ? "Video Saved" : "Error in Video Saving: \(error?.localizedDescription ?? "")")
@@ -273,14 +241,6 @@ extension GalleryService: UIImagePickerControllerDelegate, UINavigationControlle
                     self?.delegate?.getVideoResultFromGallery(video: mediaObj)
                 })
 
-//                encodeVideoToMp4(videoUrl: url as URL, resultClosure: { [weak self] (outputUrl) in
-//                    print(outputUrl ?? "" )
-//                    self?.navigationController?.dismiss(animated: true, completion: { [weak self] in
-//
-//                        mediaObj.videoUrl = outputUrl
-//                        self?.delegate?.getVideoResultFromGallery(video: mediaObj)
-//                    })
-//                })
             }
             
         } else {

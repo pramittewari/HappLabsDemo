@@ -40,7 +40,6 @@ class UserService {
         
         user = storageService.getUser()
         networkSerivce.update(authenticationToken: user?.authenticationToken ?? "")
-        print("Session Key - \(user?.authenticationToken ?? "No token found!")")
     }
     
     // MARK: - Save/Get Methods
@@ -53,14 +52,6 @@ class UserService {
     func getUser() -> User? {
         return user
     }
-    
-//    func updateUserName(withFirstName firstName: String?, lastName: String?) {
-//        
-//        user?.firstName = firstName
-//        user?.lastName = lastName
-//        
-//        saveUser()
-//    }
     
     /// Call to save the user
     func saveUser() {
@@ -123,15 +114,8 @@ class UserService {
             } else {
                 completionHandler(statusCode, false, basicResponse.message)
             }
-//            Create new user
-//            if basicResponse.success {
-//                self?.user = User()
-//                //self?.user?.updateValues(fromResponse: userDetails)
-//                self?.saveUser()
-//            }
-//            completionHandler(statusCode, basicResponse.success, basicResponse.message ?? "")
-            }, failure: { (statusCode, error) in
-                print(error?.localizedDescription ?? "SOMETHING_WENT_WRONG")
+
+        }, failure: { (statusCode, error) in
                 completionHandler(statusCode, false, error?.localizedDescription)
         })
     }

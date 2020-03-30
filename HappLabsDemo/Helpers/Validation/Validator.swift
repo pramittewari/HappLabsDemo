@@ -38,7 +38,7 @@ class Validator: NSObject {
     /// Password regex 1 uppercase, 1 special character mandatory. Min length 6 and max 20
     private static let passwordRegEx = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[d$@$!%*?&#])[A-Za-z\\dd$@$!%*?&#]{6,}"//"^(?=.*[a-z])(?=.*[A-Z]).{6,20}$"
     /// Minimum length of password
-    private static let passwordMinLength = 6
+    private static let passwordMinLength = 8
     /// Maximum length of password
     private static let passwordMaxLength = 20
     /// Number of maximum years or months

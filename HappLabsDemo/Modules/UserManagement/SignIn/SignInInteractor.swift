@@ -12,18 +12,19 @@ import CocoaLumberjack
 
 class SignInInteractor: Interacting {
     
+    // MARK: - Variables
     private var router: UserManagementRouter
-    
     var view: SignInViewController?
-    
     var userService: UserService
     
+    // MARK: - Life cycle
     init (router: UserManagementRouter, userService: UserService) {
         
         self.router = router
         self.userService = userService
     }
     
+    // MARK: - Helper Methods
     func validate(email: String?, password: String?) -> Bool {
         
         // Email address

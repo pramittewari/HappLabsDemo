@@ -37,8 +37,6 @@ class UserManagementRouter {
     }
     
     // MARK: - Assemble methods
-    
-    ///
     func assembleInitialScreen() -> UINavigationController {
         
         guard let nav = navigationController,
@@ -53,7 +51,6 @@ class UserManagementRouter {
         return nav
     }
     
-    ///
     func assembleSignUpScreen() -> UIViewController {
         
         guard let vc = R.storyboard.userManagement.signUpViewController() else {
@@ -67,27 +64,16 @@ class UserManagementRouter {
         return vc
     }
     
-    // Navigation Methods
-    
-//    ///
-//    func presentSignInAsRoot() {
-//        let vc = assembleInitialScreen()
-//        window.rootViewController = vc
-//
-//    }
-    
-    ///
+    // MARK: - Navigation Methods
     func presentSignUpScreen() {
         let vc = assembleSignUpScreen()
         navigationController?.pushViewController(vc, animated: true)
     }
 
-    ///
     func dismissScreen() {
         navigationController?.dismiss(animated: true, completion: nil)
     }
     
-    ///
     func popViewController() {
         navigationController?.popViewController(animated: true)
     }

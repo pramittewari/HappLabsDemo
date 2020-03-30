@@ -18,7 +18,6 @@ class UploadedFile: NSObject {
     var creationDate: String?
     
     init(jsonResponse: JSON) {
-        print(jsonResponse)
 
         name = jsonResponse["object_name"].string
         size = jsonResponse["object_size"].string

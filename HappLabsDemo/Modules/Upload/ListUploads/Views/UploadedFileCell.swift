@@ -10,8 +10,10 @@ import UIKit
 
 class UploadedFileCell: UITableViewCell {
 
+    // MARK: - Outlets
     @IBOutlet weak var fileNameLabel: UILabel!
 
+    // MARK: - Life cycle
     override func awakeFromNib() {
         super.awakeFromNib()
 

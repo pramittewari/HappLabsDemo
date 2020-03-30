@@ -10,22 +10,18 @@ import UIKit
 
 class ListUploadsViewController: BaseViewController<ListUploadsInteractor> {
     
-    ///
+    // MARK: - Outlets
     @IBOutlet weak var uploadedFilesTable: UITableView!
-    ///
     @IBOutlet weak var noContentLabel: UILabel!
-    ///
     @IBOutlet weak var uploadProgressView: UIProgressView!
-    ///
     @IBOutlet weak var uploadProgressViewHeight: NSLayoutConstraint! // Defaults to 60
-    
     @IBOutlet weak var logoutButton: UIBarButtonItem!
-    
     @IBOutlet weak var uploadButton: UIButton!
     
-    ///
+    // MARK: - Variables
     private lazy var galleryService = GalleryService(navigationController: self.navigationController)
     
+    // MARK: - Actions
     @IBAction func chooseVideoTapped(_ sender: UIButton) {
         
         showAlertToChooseMedia()
@@ -36,6 +32,7 @@ class ListUploadsViewController: BaseViewController<ListUploadsInteractor> {
         interactor?.logOutUser()
     }
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,7 +46,7 @@ class ListUploadsViewController: BaseViewController<ListUploadsInteractor> {
         setButtonStates()
     }
     
-    ///
+    // MARK: - UI Methods
     func showAlertToChooseMedia() {
         
         galleryService.delegate = self
@@ -57,20 +54,17 @@ class ListUploadsViewController: BaseViewController<ListUploadsInteractor> {
         
     }
     
-    ///
     func setupTable(withFiles files: [UploadedFile]) {
         
         uploadedFilesTable.reloadData()
         setNoContentLabel()
     }
     
-    ///
     func setupUI() {
         
         setupProgressView(visibility: false)
     }
     
-    ///
     func setNoContentLabel() {
         
         DispatchQueue.main.async { [weak self] in
@@ -78,20 +72,17 @@ class ListUploadsViewController: BaseViewController<ListUploadsInteractor> {
         }
     }
     
-    ///
     func updateProgressBar(withTotal total: UInt64, uploaded: UInt64) {
         
         let uploadedBytes = CGFloat(uploaded)
         let totalBytes = CGFloat(total)
         
-        print("Received Progress = \(uploadedBytes)/\(totalBytes)")
         let value = Float(uploadedBytes/totalBytes) == 0.0 ? 0.03 : Float(uploadedBytes/totalBytes)
         DispatchQueue.main.async { [weak self] in
             self?.uploadProgressView.setProgress(value, animated: true)
         }
     }
     
-    ///
     func setupProgressView(visibility: Bool) {
         
         uploadProgressViewHeight.constant = visibility ? 60 : 0
@@ -100,7 +91,6 @@ class ListUploadsViewController: BaseViewController<ListUploadsInteractor> {
         }
     }
     
-    ///
     func setButtonStates() {
         
         guard let isUserLoggedOut = interactor?.isUserLoggedOut,
@@ -114,7 +104,6 @@ class ListUploadsViewController: BaseViewController<ListUploadsInteractor> {
             setLogoutButtonVisibility(!isUploadInProgress)
     }
     
-    ///
     func setUploadButtonVisibility(_ isVisible: Bool) {
         
         DispatchQueue.main.async { [weak self] in
@@ -123,7 +112,6 @@ class ListUploadsViewController: BaseViewController<ListUploadsInteractor> {
         }
     }
     
-    ///
     func setLogoutButtonVisibility(_ isVisible: Bool) {
         
         DispatchQueue.main.async { [weak self] in
@@ -132,6 +120,7 @@ class ListUploadsViewController: BaseViewController<ListUploadsInteractor> {
     }
 }
 
+// MARK: - Gallery Delegates
 extension ListUploadsViewController: GalleryServiceDelegate {
     
     func getVideoResultFromGallery(video: MediaDetail) {
@@ -148,6 +137,7 @@ extension ListUploadsViewController: GalleryServiceDelegate {
     func cameraResult(image: UIImage) { }
 }
 
+// MARK: - Table delegates and datasources
 extension ListUploadsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -170,6 +160,7 @@ extension ListUploadsViewController: UITableViewDelegate, UITableViewDataSource 
     }
 }
 
+// MARK: - Upload Delegate
 extension ListUploadsViewController: UploadUpdatesDelegate {
     
     func uploadBegan(forTotalSize totalSize: UInt64) {

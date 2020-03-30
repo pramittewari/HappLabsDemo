@@ -24,7 +24,6 @@ class UploadManagementRouter {
     var uploadService: UploadService
     
     // MARK: - Life cycle methods
-    // MARK: - Life cycle methods
     init(router: MainRouter, launchOptions: [UIApplication.LaunchOptionsKey: Any]?, window: UIWindow, userService: UserService, uploadService: UploadService) {
         
         self.mainRouter = router
@@ -38,8 +37,7 @@ class UploadManagementRouter {
     }
     
     // MARK: - Assemble methods
-    
-    ///
+
     func assembleInitialScreen() -> UINavigationController {
         
         guard let nav = navigationController,
@@ -53,17 +51,14 @@ class UploadManagementRouter {
         return nav
     }
     
-    // Navgation Methods
+    // Navigation Methods
     
-    ///
     func presentUploadListingAsRoot() {
-        
         let vc = assembleInitialScreen()
         window.rootViewController = vc
 
     }
     
-    ///
     func presentSignInScreen() {
         mainRouter.presentSignInScreen()
     }

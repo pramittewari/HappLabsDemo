@@ -23,19 +23,13 @@ class UploadService {
     
     // MARK: - Variables
     
-    ///
     private let networkSerivce: NetworkService
-    ///
     private let userService: UserService
-    ///
     private let notificationService: NotificationService
-    ///
+
     private let authenticationExpiredCode: Int = -2
-    
     private var uploadingFile: UploadingFile?
-    
     weak var uploadUpdatesDelegate: UploadUpdatesDelegate?
-    ///
     private var backgroundTaskID: UIBackgroundTaskIdentifier = .invalid
     
     var isUploadInProgress: Bool {
@@ -44,7 +38,6 @@ class UploadService {
     
     // MARK: - Life Cycle Methods
     
-    ///
     init(networkSerivce: NetworkService, userService: UserService, notificationService: NotificationService) {
         
         self.networkSerivce = networkSerivce
@@ -52,7 +45,21 @@ class UploadService {
         self.notificationService = notificationService
     }
     
-    ///
+    // MARK: - Upload related functions
+    func beginUpload(fromFileURL fileURL: String) {
+        
+        // Perform the task on a background queue.
+        // Request the task assertion and save the ID.
+        self.backgroundTaskID = UIApplication.shared.beginBackgroundTask(withName: "Finish Upload Tasks") {
+            // End the task if time expires.
+            UIApplication.shared.endBackgroundTask(self.backgroundTaskID)
+            self.backgroundTaskID = UIBackgroundTaskIdentifier.invalid
+        }
+        
+        // Send the data synchronously.
+        self.beginBackgroundUpload(fromFileURL: fileURL)
+    }
+    
     func updateUploadStatus() {
         
         var uploadedBytes = ((uploadingFile?.partNumber ?? 1) - 1) * maxChunkSize
@@ -60,12 +67,9 @@ class UploadService {
         
         uploadedBytes = uploadedBytes > totalSize ? totalSize : uploadedBytes
         
-        print("Fired Preogress = \(uploadedBytes)/\(totalSize)" )
-        
         uploadUpdatesDelegate?.uploadProgressChanged(withUploadedBytes: uploadedBytes, totalSize: totalSize)
     }
     
-    ///
     func stopUploading(withSuccess success: Bool, message: String?) {
         
         // End the task assertion.
@@ -77,7 +81,7 @@ class UploadService {
         uploadUpdatesDelegate?.uploadEnded(withSuccess: success, message: message)
     }
     
-    ///
+    // MARK: - API Methods
     func fetchUploadedFiles(completionHandler: @escaping ((_ statusCode: Int, _ isSuccess: Bool, _ uploadedFiles: [UploadedFile]?, _ error: String?, _ requiresHandling: Bool) -> Void)) {
         
         networkSerivce.request(parameters: nil, serverUrl: NetworkConfiguration.baseURL, apiPath: APIList.UploadManagement.fetchUploads, httpMethod: .get, success: { [weak self] (statusCode, response, _)  in
@@ -113,23 +117,6 @@ class UploadService {
             completionHandler(statusCode, false, nil, error?.localizedDescription, true)
         })
     }
-    
-    func beginUpload(fromFileURL fileURL: String) {
-        
-        // Perform the task on a background queue.
-        //DispatchQueue.global().async {
-        // Request the task assertion and save the ID.
-        self.backgroundTaskID = UIApplication.shared.beginBackgroundTask(withName: "Finish Upload Tasks") {
-            // End the task if time expires.
-            UIApplication.shared.endBackgroundTask(self.backgroundTaskID)
-            self.backgroundTaskID = UIBackgroundTaskIdentifier.invalid
-        }
-        
-        // Send the data synchronously.
-        self.beginBackgroundUpload(fromFileURL: fileURL)
-    }
-        
-    //}
     
     func beginBackgroundUpload(fromFileURL fileURL: String) {
     

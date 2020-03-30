@@ -12,18 +12,19 @@ import CocoaLumberjack
 
 class SignUpInteractor: Interacting {
     
+    // MARK: - Variables
     private var router: UserManagementRouter
-    
     var view: SignUpViewController?
-    
     var userService: UserService
     
+    // MARK: - Life cycle
     init (router: UserManagementRouter, userService: UserService) {
         
         self.router = router
         self.userService = userService
     }
     
+    // MARK: - Helpers
     func validate(email: String?, userName: String?, password: String?, confirmPassword: String?) -> Bool {
         
         // Email address
@@ -75,7 +76,7 @@ class SignUpInteractor: Interacting {
                 return
             }
             
-            self?.view?.showAlert(message: "Signed up sucessfully!.", buttonTitles: ["Okay"], customAlertViewTapButtonBlock: { [weak self] _ in
+            self?.view?.showAlert(message: "Signed up sucessfully!", buttonTitles: ["Okay"], customAlertViewTapButtonBlock: { [weak self] _ in
                 
                 self?.popViewController()
                 
@@ -84,6 +85,7 @@ class SignUpInteractor: Interacting {
         
     }
     
+    // MARK: - Navigation methods
     func popViewController() {
         router.popViewController()
     }

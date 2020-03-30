@@ -12,24 +12,17 @@ import CocoaLumberjack
 
 class ListUploadsInteractor: Interacting {
     
+    // MARK: - Variables
     private var router: UploadManagementRouter
-    
     var view: ListUploadsViewController?
-    
     var userService: UserService
-    
     var uploadService: UploadService
-    
     var uploadedFiles: [UploadedFile] = []
     
-    var isUploadInProgress: Bool {
-        return uploadService.isUploadInProgress
-    }
+    var isUploadInProgress: Bool { return uploadService.isUploadInProgress }
+    var isUserLoggedOut: Bool { return (userService.getUser()?.authenticationToken ?? "") == "" }
     
-    var isUserLoggedOut: Bool {
-        return (userService.getUser()?.authenticationToken ?? "") == ""
-    }
-    
+    // MARK: - Life cycle
     init (router: UploadManagementRouter, uploadService: UploadService, userService: UserService) {
         
         self.router = router
@@ -43,6 +36,7 @@ class ListUploadsInteractor: Interacting {
         uploadService.uploadUpdatesDelegate = view
     }
         
+    // MARK: - API Methods
     func beginUpload(fromFileURL fileURL: String) {
         
         uploadService.beginUpload(fromFileURL: fileURL)
@@ -68,6 +62,7 @@ class ListUploadsInteractor: Interacting {
         }
     }
     
+    // MARK: - Navigation Methods
     func logOutUser() {
         
         userService.deleteUser()
@@ -80,6 +75,7 @@ class ListUploadsInteractor: Interacting {
     }
 }
 
+// MARK: - Login delegates
 extension ListUploadsInteractor: LoginDelegate {
     
     func userLoggedIn() {

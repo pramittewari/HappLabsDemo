@@ -44,8 +44,6 @@ class UploadingFile {
         fileName = url.lastPathComponent
         fileExtension = url.pathExtension
         totalSize = url.fileSize
-        print("Initiaised file size \(totalSize ?? 0)")
-        // fileHandle = FileHandle(forReadingAtPath: fileURL)
         do {
             fileHandle = try FileHandle(forReadingFrom: url)
         } catch {

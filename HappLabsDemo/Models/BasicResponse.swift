@@ -30,7 +30,6 @@ class BasicResponse: NSObject {
     var message: String?
     
     init(jsonResponse: JSON) {
-        print(jsonResponse)
 
         success = jsonResponse["success"].bool ?? false
         message = jsonResponse["message"].string

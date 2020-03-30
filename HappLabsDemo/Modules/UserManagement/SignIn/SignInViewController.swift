@@ -10,9 +10,11 @@ import UIKit
 
 class SignInViewController: BaseViewController<SignInInteractor> {
     
+    // MARK: - Outlets
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
 
+    // MARK: - Actions
     @IBAction func signInTapped(_ sender: UIButton) {
         
         interactor?.signInUser(email: emailTextField.text, password: passwordTextField.text)
@@ -23,6 +25,7 @@ class SignInViewController: BaseViewController<SignInInteractor> {
         interactor?.navigateToSignUpScreen()
     }
     
+    // MARK: - Life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
 
