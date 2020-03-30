@@ -142,7 +142,10 @@ class GalleryService: NSObject {
             if #available(iOS 11.0, *) {
                      imagePicker.videoExportPreset = AVAssetExportPreset1920x1080
             }
-            navigationController?.present(imagePicker, animated: true, completion: nil)
+            DispatchQueue.main.async { [weak self] in
+                self?.navigationController?.present(imagePicker, animated: true, completion: nil)
+            }
+            
         }
     }
     
@@ -154,7 +157,10 @@ class GalleryService: NSObject {
         if forVideosOnly, let mediaType = (NSArray(objects: kUTTypeMovie) as? [String]) {
             myPickerController.mediaTypes = mediaType
         }
-        navigationController?.present(myPickerController, animated: true, completion: nil)
+        DispatchQueue.main.async { [weak self] in
+            self?.navigationController?.present(self?.myPickerController ?? UIImagePickerController(), animated: true, completion: nil)
+        }
+
     }
     
 }

@@ -24,6 +24,10 @@ class ListUploadsViewController: BaseViewController<ListUploadsInteractor> {
     // MARK: - Actions
     @IBAction func chooseVideoTapped(_ sender: UIButton) {
         
+        guard !(interactor?.isUserLoggedOut ?? true) else {
+            interactor?.presentSignInScreen()
+            return
+        }
         showAlertToChooseMedia()
     }
     
@@ -100,11 +104,11 @@ class ListUploadsViewController: BaseViewController<ListUploadsInteractor> {
             return
         }
         
-            setUploadButtonVisibility(!isUserLoggedOut && !isUploadInProgress)
+            setUploadButtonVisibility(!isUploadInProgress)
             setLogoutButtonVisibility(!isUploadInProgress)
     }
     
-    func setUploadButtonVisibility(_ isVisible: Bool) {
+    private func setUploadButtonVisibility(_ isVisible: Bool) {
         
         DispatchQueue.main.async { [weak self] in
             self?.uploadButton.isUserInteractionEnabled = isVisible
@@ -112,7 +116,7 @@ class ListUploadsViewController: BaseViewController<ListUploadsInteractor> {
         }
     }
     
-    func setLogoutButtonVisibility(_ isVisible: Bool) {
+    private func setLogoutButtonVisibility(_ isVisible: Bool) {
         
         DispatchQueue.main.async { [weak self] in
             self?.logoutButton.isEnabled = isVisible

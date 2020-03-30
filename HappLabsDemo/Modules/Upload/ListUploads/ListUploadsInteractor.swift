@@ -66,6 +66,7 @@ class ListUploadsInteractor: Interacting {
     func logOutUser() {
         
         userService.deleteUser()
+        view?.setButtonStates()
         presentSignInScreen()
     }
     
