@@ -11,13 +11,13 @@
         <!--UPLOADS-->
         <scene sceneID="WeF-52-ymQ">
             <objects>
-                <viewController storyboardIdentifier="ListUploadsViewController" title="UPLOADS" id="mO0-nJ-IyI" customClass="ListUploadsViewController" customModule="HappLabsDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ListUploadsViewController" title="UPLOADS" interfaceStyle="light" id="mO0-nJ-IyI" customClass="ListUploadsViewController" customModule="HappLabsDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="szj-Rg-wGV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yns-Ek-3pF">
-                                <rect key="frame" x="107" y="772" width="200" height="50"/>
+                                <rect key="frame" x="107" y="796" width="200" height="50"/>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="BaX-bN-QS1"/>
@@ -39,7 +39,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IhR-E3-GP4">
                                 <rect key="frame" x="0.0" y="88" width="414" height="60"/>
                                 <subviews>
-                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1Jh-6t-Cap">
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1Jh-6t-Cap">
                                         <rect key="frame" x="20.5" y="19" width="373" height="2"/>
                                     </progressView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Uploading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Mz-2H-OTi">
@@ -60,8 +60,18 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hHx-DG-95Y">
-                                <rect key="frame" x="0.0" y="148" width="414" height="624"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <rect key="frame" x="0.0" y="148" width="414" height="632"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexTrackingBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="qUU-ck-6nh">
+                                    <rect key="frame" x="0.0" y="165" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="UploadedFileCell" rowHeight="109" id="aKu-f5-7sI" customClass="UploadedFileCell" customModule="HappLabsDemo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="109"/>
@@ -70,13 +80,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="351" height="109"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KKn-Qz-nnB">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KKn-Qz-nnB">
                                                     <rect key="frame" x="28" y="19" width="299" height="71"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="KKn-Qz-nnB" firstAttribute="leading" secondItem="Day-Bs-p2L" secondAttribute="leadingMargin" constant="8" id="Lyj-Vr-EXp"/>
                                                 <constraint firstItem="KKn-Qz-nnB" firstAttribute="top" secondItem="Day-Bs-p2L" secondAttribute="topMargin" constant="8" id="MRD-ct-x4u"/>
@@ -84,6 +95,8 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="KKn-Qz-nnB" secondAttribute="bottom" constant="8" id="rTN-wS-bJN"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="fileNameLabel" destination="KKn-Qz-nnB" id="R4v-jO-bJq"/>
                                         </connections>
@@ -94,8 +107,9 @@
                                     <outlet property="delegate" destination="mO0-nJ-IyI" id="W7U-Mb-aa4"/>
                                 </connections>
                             </tableView>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No file uploaded yet!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gI-d1-Zde">
-                                <rect key="frame" x="128" y="424.5" width="158" height="21"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No files to show!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gI-d1-Zde">
+                                <rect key="frame" x="143.5" y="424.5" width="127" height="21"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -107,25 +121,27 @@
                             <constraint firstItem="IhR-E3-GP4" firstAttribute="leading" secondItem="zQM-rr-ygF" secondAttribute="leading" id="5Ro-qf-R3u"/>
                             <constraint firstItem="hHx-DG-95Y" firstAttribute="leading" secondItem="zQM-rr-ygF" secondAttribute="leading" id="Qa5-nS-tY1"/>
                             <constraint firstItem="IhR-E3-GP4" firstAttribute="top" secondItem="zQM-rr-ygF" secondAttribute="top" id="akS-y2-8Bl"/>
-                            <constraint firstItem="Yns-Ek-3pF" firstAttribute="top" secondItem="hHx-DG-95Y" secondAttribute="bottom" id="cKt-0p-wDq"/>
+                            <constraint firstItem="Yns-Ek-3pF" firstAttribute="top" secondItem="hHx-DG-95Y" secondAttribute="bottom" constant="16" id="cKt-0p-wDq"/>
                             <constraint firstItem="zQM-rr-ygF" firstAttribute="trailing" secondItem="IhR-E3-GP4" secondAttribute="trailing" id="eC1-cS-f3U"/>
                             <constraint firstItem="0gI-d1-Zde" firstAttribute="centerX" secondItem="zQM-rr-ygF" secondAttribute="centerX" id="i4n-Ne-RWC"/>
                             <constraint firstItem="0gI-d1-Zde" firstAttribute="centerY" secondItem="zQM-rr-ygF" secondAttribute="centerY" constant="-40" id="iNp-dM-Tgc"/>
                             <constraint firstItem="hHx-DG-95Y" firstAttribute="top" secondItem="IhR-E3-GP4" secondAttribute="bottom" id="oYN-5m-7dm"/>
-                            <constraint firstItem="zQM-rr-ygF" firstAttribute="bottom" secondItem="Yns-Ek-3pF" secondAttribute="bottom" constant="40" id="ptZ-zM-dKd"/>
+                            <constraint firstItem="zQM-rr-ygF" firstAttribute="bottom" secondItem="Yns-Ek-3pF" secondAttribute="bottom" constant="16" id="ptZ-zM-dKd"/>
                             <constraint firstItem="zQM-rr-ygF" firstAttribute="trailing" secondItem="hHx-DG-95Y" secondAttribute="trailing" id="zD5-w0-Mna"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zQM-rr-ygF"/>
                     </view>
                     <navigationItem key="navigationItem" title="UPLOADS" id="4o7-CZ-szL">
-                        <barButtonItem key="rightBarButtonItem" title="Logout" id="69m-yV-YKQ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="69m-yV-YKQ">
                             <connections>
                                 <action selector="logoutTapped:" destination="mO0-nJ-IyI" id="VzO-7y-NUS"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="logoutButton" destination="69m-yV-YKQ" id="AnG-yL-is3"/>
                         <outlet property="noContentLabel" destination="0gI-d1-Zde" id="LSN-3C-xXg"/>
+                        <outlet property="uploadButton" destination="Yns-Ek-3pF" id="UK5-3x-riT"/>
                         <outlet property="uploadProgressView" destination="1Jh-6t-Cap" id="cTZ-b5-zZo"/>
                         <outlet property="uploadProgressViewHeight" destination="1UD-L9-iax" id="dvh-oE-4Bu"/>
                         <outlet property="uploadedFilesTable" destination="hHx-DG-95Y" id="XQG-Sv-nI3"/>
@@ -134,21 +150,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qt3-zI-LMk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="885.50724637681162" y="-125.22321428571428"/>
-        </scene>
-        <!--Create Upload View Controller-->
-        <scene sceneID="Kt7-xs-RMA">
-            <objects>
-                <viewController storyboardIdentifier="CreateUploadViewController" id="4wI-so-0oJ" customClass="CreateUploadViewController" customModule="HappLabsDemo" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="HuZ-2a-2WP">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="qDg-vB-YCf"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Qk6-sY-9xZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1615.9420289855075" y="-126.5625"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kRt-eJ-hzi">

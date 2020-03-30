@@ -16,10 +16,9 @@ enum MediaType {
 }
 
 class MediaDetail {
-    var data: Data?
+    
     var name: String?
     var type: MediaType?
-    var thumbnailImage: UIImage?
     var avUrlAssset: AVURLAsset? // For video
     var audioUrl: URL? //For Audio
     var videoUrl: URL? // For recorded video

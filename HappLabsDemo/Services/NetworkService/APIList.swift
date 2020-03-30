@@ -31,7 +31,7 @@ class APIList: NSObject {
         ///
         static let upload = "/upload"
         ///
-        static let completeUpload = "/"
+        static let completeUpload = "/complete"
         ///
         static let fetchUploads = "/getData"
     }

@@ -22,6 +22,14 @@ class ListUploadsInteractor: Interacting {
     
     var uploadedFiles: [UploadedFile] = []
     
+    var isUploadInProgress: Bool {
+        return uploadService.isUploadInProgress
+    }
+    
+    var isUserLoggedOut: Bool {
+        return (userService.getUser()?.authenticationToken ?? "") == ""
+    }
+    
     init (router: UploadManagementRouter, uploadService: UploadService, userService: UserService) {
         
         self.router = router
@@ -32,11 +40,12 @@ class ListUploadsInteractor: Interacting {
     func viewWillAppear() {
         
         userService.loginDelegate = self
+        uploadService.uploadUpdatesDelegate = view
     }
         
-    func beginUpload(fromFileURL fileURL: String, fileSize: Int, fileName: String) {
+    func beginUpload(fromFileURL fileURL: String) {
         
-        uploadService.beginUpload(fromFileURL: fileURL, fileSize: fileSize, fileName: fileName)
+        uploadService.beginUpload(fromFileURL: fileURL)
     }
     
     func fetchUploadedFiles() {
@@ -44,17 +53,18 @@ class ListUploadsInteractor: Interacting {
         view?.showProgressHudView()
         uploadService.fetchUploadedFiles { [weak self] (_, success, uploadedFiles, message, requiresHandling)  in
             
+            let result = Array((uploadedFiles ?? []).reversed())
             self?.view?.hideProgressHudView()
-            self?.uploadedFiles = uploadedFiles ?? []
+            self?.uploadedFiles = result
             guard success else {
                 // Handle error
                 if requiresHandling {
                     self?.view?.showOkAlert(message: message ?? "Something went wrong")
                 }
-                self?.view?.setupView(withFiles: uploadedFiles ?? [])
+                self?.view?.setupTable(withFiles: result)
                 return
             }
-            self?.view?.setupView(withFiles: uploadedFiles ?? [])
+            self?.view?.setupTable(withFiles: result)
         }
     }
     
@@ -74,6 +84,7 @@ extension ListUploadsInteractor: LoginDelegate {
     
     func userLoggedIn() {
         fetchUploadedFiles()
+        view?.setButtonStates()
     }
     
 }

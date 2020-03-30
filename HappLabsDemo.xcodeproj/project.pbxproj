@@ -12,9 +12,7 @@
 		8D292B84242A2D65005A8A1E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D292B83242A2D65005A8A1E /* SignUpViewController.swift */; };
 		8D292B86242A2D96005A8A1E /* SignInInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D292B85242A2D96005A8A1E /* SignInInteractor.swift */; };
 		8D292B88242A2DAF005A8A1E /* SignUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D292B87242A2DAF005A8A1E /* SignUpInteractor.swift */; };
-		8D292B8A242A2E0D005A8A1E /* CreateUploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D292B89242A2E0D005A8A1E /* CreateUploadViewController.swift */; };
 		8D292B8C242A2E25005A8A1E /* ListUploadsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D292B8B242A2E25005A8A1E /* ListUploadsViewController.swift */; };
-		8D292B8E242A2E40005A8A1E /* CreateUploadInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D292B8D242A2E40005A8A1E /* CreateUploadInteractor.swift */; };
 		8D292B90242A2E51005A8A1E /* ListUploadsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D292B8F242A2E51005A8A1E /* ListUploadsInteractor.swift */; };
 		8D292B94242A32B0005A8A1E /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D292B92242A32B0005A8A1E /* UIView.swift */; };
 		8D292B95242A32B0005A8A1E /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D292B93242A32B0005A8A1E /* UIViewController.swift */; };
@@ -37,6 +35,8 @@
 		8D29D0F2243050F70048E5E8 /* UploadedFileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D29D0F1243050F70048E5E8 /* UploadedFileCell.swift */; };
 		8D29D0F6243121950048E5E8 /* ValidationMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D29D0F4243121950048E5E8 /* ValidationMessages.swift */; };
 		8D29D0F7243121950048E5E8 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D29D0F5243121950048E5E8 /* Validator.swift */; };
+		8D4E887224315E3700D3A800 /* UploadingFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E887124315E3700D3A800 /* UploadingFile.swift */; };
+		8D4E88742432029700D3A800 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E88732432029700D3A800 /* URL.swift */; };
 		8D58FC2224291886008389EC /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58FC1224291885008389EC /* BaseViewController.swift */; };
 		8D58FC2324291886008389EC /* Interacting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58FC1324291885008389EC /* Interacting.swift */; };
 		8D58FC2424291886008389EC /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58FC1524291885008389EC /* MainRouter.swift */; };
@@ -57,9 +57,7 @@
 		8D292B83242A2D65005A8A1E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		8D292B85242A2D96005A8A1E /* SignInInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInInteractor.swift; sourceTree = "<group>"; };
 		8D292B87242A2DAF005A8A1E /* SignUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInteractor.swift; sourceTree = "<group>"; };
-		8D292B89242A2E0D005A8A1E /* CreateUploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUploadViewController.swift; sourceTree = "<group>"; };
 		8D292B8B242A2E25005A8A1E /* ListUploadsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUploadsViewController.swift; sourceTree = "<group>"; };
-		8D292B8D242A2E40005A8A1E /* CreateUploadInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUploadInteractor.swift; sourceTree = "<group>"; };
 		8D292B8F242A2E51005A8A1E /* ListUploadsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUploadsInteractor.swift; sourceTree = "<group>"; };
 		8D292B92242A32B0005A8A1E /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		8D292B93242A32B0005A8A1E /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +80,8 @@
 		8D29D0F1243050F70048E5E8 /* UploadedFileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadedFileCell.swift; sourceTree = "<group>"; };
 		8D29D0F4243121950048E5E8 /* ValidationMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationMessages.swift; sourceTree = "<group>"; };
 		8D29D0F5243121950048E5E8 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		8D4E887124315E3700D3A800 /* UploadingFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadingFile.swift; sourceTree = "<group>"; };
+		8D4E88732432029700D3A800 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		8D58FBF82428FA65008389EC /* HappLabsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HappLabsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D58FC1224291885008389EC /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8D58FC1324291885008389EC /* Interacting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interacting.swift; sourceTree = "<group>"; };
@@ -122,6 +122,7 @@
 			children = (
 				8D292B92242A32B0005A8A1E /* UIView.swift */,
 				8D292B93242A32B0005A8A1E /* UIViewController.swift */,
+				8D4E88732432029700D3A800 /* URL.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -155,10 +156,11 @@
 		8D292BA9242AA66D005A8A1E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8D292BAF242ABFA8005A8A1E /* Media.swift */,
-				8D292BBB242B01C8005A8A1E /* User.swift */,
 				8D292BAA242AA682005A8A1E /* BasicResponse.swift */,
+				8D292BBB242B01C8005A8A1E /* User.swift */,
+				8D292BAF242ABFA8005A8A1E /* Media.swift */,
 				8D29D0EE243026FE0048E5E8 /* UploadedFile.swift */,
+				8D4E887124315E3700D3A800 /* UploadingFile.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -313,7 +315,6 @@
 				8D58FC3224291B5C008389EC /* UploadManagement.storyboard */,
 				8D58FC3424291B6D008389EC /* UploadManagementRouter.swift */,
 				8D58FC3824291D9E008389EC /* ListUploads */,
-				8D58FC3924291D9E008389EC /* CreateUpload */,
 			);
 			path = Upload;
 			sourceTree = "<group>";
@@ -355,15 +356,6 @@
 				8D29D0F02430509E0048E5E8 /* Views */,
 			);
 			path = ListUploads;
-			sourceTree = "<group>";
-		};
-		8D58FC3924291D9E008389EC /* CreateUpload */ = {
-			isa = PBXGroup;
-			children = (
-				8D292B89242A2E0D005A8A1E /* CreateUploadViewController.swift */,
-				8D292B8D242A2E40005A8A1E /* CreateUploadInteractor.swift */,
-			);
-			path = CreateUpload;
 			sourceTree = "<group>";
 		};
 		EB6A111FD229D692AC036D0F /* Frameworks */ = {
@@ -533,7 +525,6 @@
 				8D292B82242A2D55005A8A1E /* SignInViewController.swift in Sources */,
 				8D292B8C242A2E25005A8A1E /* ListUploadsViewController.swift in Sources */,
 				8D58FC2524291886008389EC /* AppDelegate.swift in Sources */,
-				8D292B8E242A2E40005A8A1E /* CreateUploadInteractor.swift in Sources */,
 				8D292BBA242B00DF005A8A1E /* LocalStorageKeys.swift in Sources */,
 				8D292BB0242ABFA8005A8A1E /* Media.swift in Sources */,
 				8D292BA4242A64CC005A8A1E /* NetworkService.swift in Sources */,
@@ -541,6 +532,7 @@
 				8D292BBC242B01C8005A8A1E /* User.swift in Sources */,
 				8D292B84242A2D65005A8A1E /* SignUpViewController.swift in Sources */,
 				8D58FC2324291886008389EC /* Interacting.swift in Sources */,
+				8D4E88742432029700D3A800 /* URL.swift in Sources */,
 				8D58FC3524291B6D008389EC /* UploadManagementRouter.swift in Sources */,
 				8D29D0F7243121950048E5E8 /* Validator.swift in Sources */,
 				8D58FC3124291B39008389EC /* UserManagementRouter.swift in Sources */,
@@ -550,6 +542,7 @@
 				8D29D0F6243121950048E5E8 /* ValidationMessages.swift in Sources */,
 				8D292BB9242B00DF005A8A1E /* StorageService.swift in Sources */,
 				8D58FC2224291886008389EC /* BaseViewController.swift in Sources */,
+				8D4E887224315E3700D3A800 /* UploadingFile.swift in Sources */,
 				8D292BA6242A64CC005A8A1E /* NetworkConfiguration.swift in Sources */,
 				8D292BA8242A64CC005A8A1E /* NotificationService.swift in Sources */,
 				8D292B90242A2E51005A8A1E /* ListUploadsInteractor.swift in Sources */,
@@ -557,7 +550,6 @@
 				8D292BAE242AAB86005A8A1E /* GalleryService.swift in Sources */,
 				8D292BB8242B00DF005A8A1E /* LocalStorageService.swift in Sources */,
 				8D58FC2424291886008389EC /* MainRouter.swift in Sources */,
-				8D292B8A242A2E0D005A8A1E /* CreateUploadViewController.swift in Sources */,
 				8D292B88242A2DAF005A8A1E /* SignUpInteractor.swift in Sources */,
 				8D292B95242A32B0005A8A1E /* UIViewController.swift in Sources */,
 				8D292B86242A2D96005A8A1E /* SignInInteractor.swift in Sources */,

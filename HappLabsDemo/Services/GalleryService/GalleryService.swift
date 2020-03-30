@@ -28,6 +28,7 @@ protocol GalleryServiceDelegate: class {
     ///
     func getVideoResultFromGallery(video: MediaDetail)
 }
+
 ///
 class GalleryService: NSObject {
     
@@ -75,7 +76,7 @@ class GalleryService: NSObject {
     
     ///
     func openCamera(withFrontCamera isFrontCam: Bool = false) {
-
+        
         openCameraAfterAuthorization(withFrontCamera: isFrontCam)
     }
     
@@ -102,7 +103,7 @@ class GalleryService: NSObject {
             AVCaptureDevice.requestAccess(for: .video, completionHandler: { [weak self] (granted: Bool) in
                 if granted {
                     if UIImagePickerController.isSourceTypeAvailable(.camera) {
-
+                        
                         DispatchQueue.main.async {
                             
                             self?.myPickerController.delegate = self
@@ -133,7 +134,7 @@ class GalleryService: NSObject {
             if let mediaType = (NSArray(objects: kUTTypeMovie) as? [String]) {
                 imagePicker.mediaTypes = mediaType
             }
-
+            
             imagePicker.cameraCaptureMode = .video
             imagePicker.videoQuality = .typeHigh
             //imagePicker.videoMaximumDuration = TimeInterval(maxVideoDurationAllowed)
@@ -143,20 +144,26 @@ class GalleryService: NSObject {
             if #available(iOS 13.0, *) {
                 imagePicker.overrideUserInterfaceStyle = .light
             }
+            if #available(iOS 11.0, *) {
+                     imagePicker.videoExportPreset = AVAssetExportPreset1920x1080
+            } else {
+                        // Fallback on earlier versions
+            }
             navigationController?.present(imagePicker, animated: true, completion: nil)
         }
     }
+    
     ///
     private func openGallery(forVideosOnly: Bool = false) {
         myPickerController.delegate = self
         myPickerController.sourceType = .savedPhotosAlbum
-
+        
         if forVideosOnly, let mediaType = (NSArray(objects: kUTTypeMovie) as? [String]) {
             myPickerController.mediaTypes = mediaType
         }
         navigationController?.present(myPickerController, animated: true, completion: nil)
     }
-        
+    
 }
 
 // MARK: - Gallery Delegate Methods
@@ -167,74 +174,81 @@ extension GalleryService: UIImagePickerControllerDelegate, UINavigationControlle
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
         if let pickedVideoUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
-            //Video
+            // Video
             let mediaObj = MediaDetail()
             mediaObj.type = .video
             
-            if let thumbnail = getPreviewImageForVideoAtURL(pickedVideoUrl as URL, atInterval: 1) {
-                mediaObj.thumbnailImage = thumbnail
-            }
-
             if picker.sourceType == .camera {
-
+                
                 let status = PHPhotoLibrary.authorizationStatus()
                 
                 switch status {
                 case .authorized:
+                    
                     // AUTHORISED
                     PHPhotoLibrary.shared().performChanges({
                         let request = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: pickedVideoUrl as URL)
                         print(request?.placeholderForCreatedAsset?.localIdentifier ?? "nil")
-                        self.encodeVideoToMp4(videoUrl: pickedVideoUrl as URL, resultClosure: { [weak self](outputUrl) in
-                            print(outputUrl ?? "")
-                            mediaObj.videoUrl = outputUrl
-                            DispatchQueue.main.async {
-                                self?.navigationController?.dismiss(animated: true, completion: { [weak self] in
-                                    //mediaObj.videoUrl = outputUrl
-                                    guard let outputUrl = outputUrl, let mp4data =  NSData(contentsOf: outputUrl) else { return }
-                                    mediaObj.data = mp4data as Data?
-                                    self?.delegate?.getVideoResultFromGallery(video: mediaObj)
-                                })
-                            }
-                        })
                         
-                    }, completionHandler: { (success, error) in
-                        if success {
-                            print("Video Saved")
-                        } else {
-                            print("Error in Video Saving: \(error?.localizedDescription ?? "")")
+                        mediaObj.videoUrl = pickedVideoUrl as URL
+                        
+                        DispatchQueue.main.async { [weak self] in
+                            self?.navigationController?.dismiss(animated: true, completion: { [weak self] in
+                                self?.delegate?.getVideoResultFromGallery(video: mediaObj)
+                            })
                         }
+                        
+//                        self.encodeVideoToMp4(videoUrl: pickedVideoUrl as URL, resultClosure: { [weak self] (outputUrl) in
+//
+//                            print(outputUrl ?? "")
+//                            mediaObj.videoUrl = outputUrl
+//
+//                            DispatchQueue.main.async {
+//                                self?.navigationController?.dismiss(animated: true, completion: { [weak self] in
+//                                    self?.delegate?.getVideoResultFromGallery(video: mediaObj)
+//                                })
+//                            }
+//                        })
+                    }, completionHandler: { (success, error) in
+                        print(success ? "Video Saved" : "Error in Video Saving: \(error?.localizedDescription ?? "")")
                     })
                 case .denied:
                     delegate?.cameraAuthorizationFailed(withMessage: "HappLabsDemo needs authorisation to you photo library.", navigateToSettings: true)
                     
                 case .notDetermined:
+                    
                     // Permission not determined
                     PHPhotoLibrary.requestAuthorization({ [weak self] (status) in
                         if status == PHAuthorizationStatus.authorized {
-                            // photo library access given
+                            
+                            // Photo library access given
                             PHPhotoLibrary.shared().performChanges({
-                                let request = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: pickedVideoUrl as URL)
-                                print(request?.placeholderForCreatedAsset?.localIdentifier ?? "nil")
-                                self?.encodeVideoToMp4(videoUrl: pickedVideoUrl as URL, resultClosure: { [weak self](outputUrl) in
-                                    print(outputUrl ?? "")
-                                    mediaObj.videoUrl = outputUrl
-                                    DispatchQueue.main.async {
-                                        self?.navigationController?.dismiss(animated: true, completion: { [weak self] in
-                                            //mediaObj.videoUrl = outputUrl
-                                            guard let outputUrl = outputUrl, let mp4data =  NSData(contentsOf: outputUrl) else { return }
-                                            mediaObj.data = mp4data as Data?
-                                            self?.delegate?.getVideoResultFromGallery(video: mediaObj)
-                                        })
-                                    }
-                                })
+                                
+                                mediaObj.videoUrl = pickedVideoUrl as URL
+                                
+                                DispatchQueue.main.async {
+                                    self?.navigationController?.dismiss(animated: true, completion: { [weak self] in
+
+                                        self?.delegate?.getVideoResultFromGallery(video: mediaObj)
+                                        
+                                    })
+                                }
+                                
+//                                self?.encodeVideoToMp4(videoUrl: pickedVideoUrl as URL, resultClosure: { [weak self] (outputUrl) in
+//
+//                                    mediaObj.videoUrl = outputUrl
+//
+//                                    DispatchQueue.main.async {
+//                                        self?.navigationController?.dismiss(animated: true, completion: { [weak self] in
+//
+//                                            self?.delegate?.getVideoResultFromGallery(video: mediaObj)
+//
+//                                        })
+//                                    }
+//                                })
                                 
                             }, completionHandler: { (success, error) in
-                                if success {
-                                    print("Video Saved")
-                                } else {
-                                    print("Error in Video Saving: \(error?.localizedDescription ?? "")")
-                                }
+                                    print(success ? "Video Saved" : "Error in Video Saving: \(error?.localizedDescription ?? "")")
                             })
                         } else {
                             // Restricted manually
@@ -243,38 +257,40 @@ extension GalleryService: UIImagePickerControllerDelegate, UINavigationControlle
                     })
                 case .restricted:
                     delegate?.cameraAuthorizationFailed(withMessage: "HappLabsDemo needs authorisation to you photo library.", navigateToSettings: true)
-
+                    
                 default: break
                 }
-
+                
             } else {
                 guard let url = ((info as NSDictionary)).object(forKey: "UIImagePickerControllerMediaURL") as? NSURL else {
                     navigationController?.dismiss(animated: true, completion: nil)
                     return
                 }
-                encodeVideoToMp4(videoUrl: url as URL, resultClosure: { [weak self](outputUrl) in
-                    print(outputUrl ?? "" )
-                    self?.navigationController?.dismiss(animated: true, completion: { [weak self] in
-                        mediaObj.videoUrl = outputUrl
-                        guard let outputUrl = outputUrl, let mp4data =  NSData(contentsOf: outputUrl) else { return }
-                        mediaObj.data = mp4data as Data?
-                        self?.delegate?.getVideoResultFromGallery(video: mediaObj)
-                    })
+                
+                navigationController?.dismiss(animated: true, completion: { [weak self] in
+                    
+                    mediaObj.videoUrl = url as URL
+                    self?.delegate?.getVideoResultFromGallery(video: mediaObj)
                 })
+
+//                encodeVideoToMp4(videoUrl: url as URL, resultClosure: { [weak self] (outputUrl) in
+//                    print(outputUrl ?? "" )
+//                    self?.navigationController?.dismiss(animated: true, completion: { [weak self] in
+//
+//                        mediaObj.videoUrl = outputUrl
+//                        self?.delegate?.getVideoResultFromGallery(video: mediaObj)
+//                    })
+//                })
             }
             
         } else {
             // To handle image
-            if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-                delegate?.cameraResult(image: image)
-                navigationController?.dismiss(animated: true, completion: nil)
-            } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                //UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 delegate?.cameraResult(image: image)
                 navigationController?.dismiss(animated: true, completion: nil)
             } else {
                 navigationController?.dismiss(animated: true, completion: { [weak self] in
-
+                    
                     self?.delegate?.cameraAuthorizationFailed(withMessage: "SOMETHING_WENT_WRONG! Please try again!", navigateToSettings: false)
                 })
             }
@@ -323,12 +339,11 @@ extension GalleryService: UIImagePickerControllerDelegate, UINavigationControlle
                 switch exportSession.status {
                 case .failed:
                     print("Export failed: \(exportSession.error != nil ? exportSession.error?.localizedDescription ?? "No Error Info" : "No Error Info")")
-                    
                     DispatchQueue.main.async {
                         self.navigationController?.dismiss(animated: true, completion: nil)
                     }
                 case .cancelled:
-                    print("Export canceled")
+                    print("Export cancelled")
                     DispatchQueue.main.async {
                         self.navigationController?.dismiss(animated: true, completion: nil)
                     }
@@ -343,20 +358,5 @@ extension GalleryService: UIImagePickerControllerDelegate, UINavigationControlle
         } else {
             resultClosure(nil)
         }
-    }
-    
-    func getPreviewImageForVideoAtURL(_ videoURL: URL, atInterval: Int) -> UIImage? {
-        print("Taking pic at \(atInterval) second")
-        let asset = AVAsset(url: videoURL)
-        let assetImgGenerate = AVAssetImageGenerator(asset: asset)
-        assetImgGenerate.appliesPreferredTrackTransform = true
-        let time = CMTimeMakeWithSeconds(Float64(atInterval), preferredTimescale: 100)
-        do {
-            let img = try assetImgGenerate.copyCGImage(at: time, actualTime: nil)
-            let frameImg = UIImage(cgImage: img)
-            return frameImg
-        } catch {
-        }
-        return nil
     }
 }
