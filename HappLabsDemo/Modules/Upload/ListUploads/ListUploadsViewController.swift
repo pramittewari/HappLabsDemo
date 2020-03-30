@@ -97,8 +97,7 @@ class ListUploadsViewController: BaseViewController<ListUploadsInteractor> {
     
     func setButtonStates() {
         
-        guard let isUserLoggedOut = interactor?.isUserLoggedOut,
-            let isUploadInProgress = interactor?.isUploadInProgress else {
+        guard let isUploadInProgress = interactor?.isUploadInProgress else {
             setUploadButtonVisibility(false)
             setLogoutButtonVisibility(false)
             return
